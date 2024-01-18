@@ -1,0 +1,11 @@
+CREATE DATABASE render;
+--CREATE TABLE IF NOT EXISTS public.shape
+--(
+--    id integer NOT NULL,
+--    r integer,
+--    g integer,
+--    b integer,
+--    height integer,
+--    width integer,
+--    PRIMARY KEY (id)
+--);
