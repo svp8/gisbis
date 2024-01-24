@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Shape {
-    public Shape(int width, int height, int r, int g, int b) {
+    public Shape(double width, double height, int r, int g, int b) {
         this.width = width;
         this.height = height;
         this.r = r;
@@ -21,8 +21,8 @@ public class Shape {
 
     @Id
     private int id;
-    private int width;
-    private int height;
+    private double width;
+    private double height;
     private int r;
     private int g;
     private int b;
