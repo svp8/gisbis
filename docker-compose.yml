@@ -24,11 +24,13 @@ services:
   discovery-server:
     build: discovery-server/
   db:
-    image: postgres:16.1
+    image: postgis/postgis
     restart: always
+    ports:
+      - "5433:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
-    volumes:
-      - ./sql/create_db.sql:/docker-entrypoint-initdb.d/create_database.sql
-      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+#    volumes:
+#      - ./sql/create_db.sql:/docker-entrypoint-initdb.d/create_database.sql
+#      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql

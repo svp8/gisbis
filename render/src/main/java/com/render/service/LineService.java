@@ -1,42 +1,33 @@
 package com.render.service;
 
-import com.render.model.Shape;
-import com.render.repository.ShapeRepository;
+import com.render.model.BBox;
+import com.render.model.Line;
+import com.render.repository.LineRepository;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ShapeService {
+public class LineService {
     public static final int MAX_COLOR = 255;
-    private ShapeRepository shapeRepository;
+    private final LineRepository lineRepository;
 
     @Autowired
-    public ShapeService(ShapeRepository shapeRepository) {
-        this.shapeRepository = shapeRepository;
+    public LineService(LineRepository lineRepository) {
+        this.lineRepository = lineRepository;
     }
 
-    public Mono<Shape> save(Shape shape) {
-        return shapeRepository.save(shape);
+
+    public Flux<Line> getAllInBBox(BBox bBox){
+        return lineRepository.findAllInBBox(bBox);
     }
 
-    public Shape createRandom(double boxHeight, double boxWidth) {
-        SecureRandom secureRandom = new SecureRandom();
-        int r = secureRandom.nextInt(MAX_COLOR);
-        int g = secureRandom.nextInt(MAX_COLOR);
-        int b = secureRandom.nextInt(MAX_COLOR);
-        double height = secureRandom.nextDouble(boxHeight);
-        double width = secureRandom.nextDouble(boxWidth);
-        return new Shape(width, height, r, g, b);
-    }
 
     public List<Geometry> getDefaultLines() {//возвращает линии которые образуют HI
         GeometryFactory geometryFactory = new GeometryFactory();
@@ -63,11 +54,8 @@ public class ShapeService {
     }
 
 
-    public Flux<Shape> getList() {
-        return shapeRepository.findAll();
+    public Flux<Line> getList() {
+        return lineRepository.findAll();
     }
 
-    public Mono<Shape> getById(int id) {
-        return shapeRepository.findById(id);
-    }
 }

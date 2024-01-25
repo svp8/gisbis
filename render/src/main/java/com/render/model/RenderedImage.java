@@ -13,14 +13,15 @@ import java.util.List;
 
 
 public record RenderedImage(BufferedImage image, BBox bbox) {
-    public void addLine(Geometry line) {
+    public void addLine(Line line) {
         Geometry box = bbox.getPolygon();
-        if(!line.intersects(box)){
-            return;
-        }
+        Geometry lineGeometry= line.getGeometry();
+//        if(!lineGeometry.intersects(box)){
+//            return;
+//        }
         Set<Coordinate> points = new HashSet<>();
-        Coordinate[] lineCoordinates = line.getCoordinates();
-        Geometry intersections = box.getBoundary().intersection(line);
+        Coordinate[] lineCoordinates = lineGeometry.getCoordinates();
+        Geometry intersections = box.getBoundary().intersection(lineGeometry);
         Coordinate[] intersectionCoordinates = intersections.getCoordinates();
         if (intersectionCoordinates.length != 0) {
             points.addAll(Arrays.asList(intersectionCoordinates));
@@ -43,32 +44,13 @@ public record RenderedImage(BufferedImage image, BBox bbox) {
             double yImg = image.getHeight() * yOffset;
             imgPoints[i++] = new Coordinate(xImg, yImg);
         }
-        Graphics2D graphics = image.createGraphics();
-        graphics.setColor(Color.black);
-        graphics.drawLine((int) imgPoints[0].getX(), (int) imgPoints[0].getY(), (int) imgPoints[1].getX(), (int) imgPoints[1].getY());
 
-        for (Coordinate coor : points) {
-            System.out.println("Intersects at " + coor);
-
+        synchronized (image){
+            Graphics2D graphics = image.createGraphics();
+            graphics.setColor(Color.decode(line.getColor()));
+            graphics.drawLine((int) imgPoints[0].getX(), (int) imgPoints[0].getY(), (int) imgPoints[1].getX(), (int) imgPoints[1].getY());
         }
+
+
     }
-
-
-public void addShape(Shape shape) {
-    Graphics2D graphics = image.createGraphics();
-    graphics.setStroke(new BasicStroke(1));
-    graphics.setColor(new Color(shape.getR(), shape.getG(), shape.getB()));
-    SecureRandom secureRandom = new SecureRandom();
-//        int x = bbox.minPoint().x + secureRandom.nextInt(bbox.getWidth());
-//        int y = bbox.minPoint().y + secureRandom.nextInt(bbox.getHeight());
-//        int width = shape.getWidth();
-//        if (shape.getWidth() + x >= bbox.maxPoint().x) {
-//            width = bbox.maxPoint().x - x;
-//        }
-//        int height = shape.getHeight();
-//        if (shape.getHeight() + y >= bbox.maxPoint().y) {
-//            height = bbox.maxPoint().y - y;
-//        }
-//        graphics.fillRect(x, y, width, height);
-}
 }
