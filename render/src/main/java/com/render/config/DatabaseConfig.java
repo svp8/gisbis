@@ -20,6 +20,7 @@ public class DatabaseConfig extends AbstractR2dbcConfiguration {
     public ConnectionFactory connectionFactory() {
         return null;
     }
+
     protected List<Object> getCustomConverters() {
         return List.of(
                 new GeometryReadConverter()

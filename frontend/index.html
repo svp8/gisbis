@@ -1,48 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-</head>
-<style>
-    #map { height: 500px; }
-</style>
-<body>
-    
-    <div id="map"></div>
-    <form style="margin-top: 10px;">
-            <input id="width" placeholder="width"/>
-        <input id="height" placeholder="height"/>
-        <p>Координаты писать через пробел</p>
-        <input id="minPoint" placeholder="minPoint"/>
-        <input id="maxPoint" placeholder="maxPoint"/>
-    </form>
-            <button id="button"  onclick="send()">Отправить</button>
-<img id="img"/>
-    <script src="index.js"></script>
-    <!-- <script>
-        // initialize Leaflet
-        var map = L.map('map').setView({ lon: 0, lat: 0 }, 2);
+    <title>Single Image WMS</title>
+    <link rel="stylesheet" href="node_modules/ol/ol.css">
+    <style>
+      .map {
+        width: 100%;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
 
-        // add the OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-        }).addTo(map);
-
-        // show the scale bar on the lower left corner
-        L.control.scale().addTo(map);
-
-        // show a marker on the map
-        L.marker({ lon: 0, lat: 0 }).bindPopup('The center of the world').addTo(map);
-    </script> -->
-</body>
-
+    <script type="module" src="main.js"></script>
+  </body>
 </html>

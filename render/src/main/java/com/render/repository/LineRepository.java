@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+
 @Repository
 public interface LineRepository extends ReactiveCrudRepository<Line, Integer> {
     @Query(" Select id,ST_AsText(geom) as geometry,color from entity e where st_intersects(" +

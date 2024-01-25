@@ -15,7 +15,6 @@ import java.util.List;
 
 @Service
 public class LineService {
-    public static final int MAX_COLOR = 255;
     private final LineRepository lineRepository;
 
     @Autowired
@@ -24,7 +23,7 @@ public class LineService {
     }
 
 
-    public Flux<Line> getAllInBBox(BBox bBox){
+    public Flux<Line> getAllInBBox(BBox bBox) {
         return lineRepository.findAllInBBox(bBox);
     }
 

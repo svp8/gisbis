@@ -48,7 +48,7 @@ public class RenderHandler {
             return ServerResponse.badRequest().bodyValue("Some params does not exist or contain non integer value");
         }
         RenderedImage renderedImage = Renderer.createImage(width, height, new BBox(new Coordinate(minX, minY), new Coordinate(maxX, maxY)));
-        Mono<Resource> result= lineService.getAllInBBox(renderedImage.bbox()).doOnNext(renderedImage::addLine).then(Mono.just(renderedImage)).map(x->{
+        Mono<Resource> result = lineService.getAllInBBox(renderedImage.bbox()).doOnNext(renderedImage::addLine).then(Mono.just(renderedImage)).map(x -> {
             try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
                 ImageIO.write(renderedImage.image(), "png", os);
                 Resource resource = new ByteArrayResource(os.toByteArray());
@@ -58,7 +58,7 @@ public class RenderHandler {
             }
         });
         return ServerResponse.ok().contentType(MediaType.IMAGE_PNG)
-                    .body(BodyInserters.fromProducer(result,Resource.class));
+                .body(BodyInserters.fromProducer(result, Resource.class));
     }
 
 }
