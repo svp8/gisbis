@@ -45,11 +45,11 @@ public record RenderedImage(BufferedImage image, BBox bbox) {
             imgPoints[i++] = new Coordinate(xImg, yImg);
         }
 
-        synchronized (image) {
+      //  synchronized (image) {
             Graphics2D graphics = image.createGraphics();
             graphics.setColor(Color.decode(line.getColor()));
             graphics.drawLine((int) imgPoints[0].getX(), (int) imgPoints[0].getY(), (int) imgPoints[1].getX(), (int) imgPoints[1].getY());
-        }
+       // }
 
 
     }
